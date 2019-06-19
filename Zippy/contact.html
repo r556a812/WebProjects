@@ -8,36 +8,44 @@
 	<link rel="stylesheet" type="text/css" href="Include/styles.css" />
 	
 	<script type="text/javascript">
+		function errDisplay (elementID, message) {
+			document.getElementById(elementID).innerHTML = message;
+		}
 		function validateContact() {
 			var okay = true;
+			errDisplay("name_err", "");
+			errDisplay("email_err", "");
+			errDisplay("method_err", "");
+			errDisplay("message_err", "");
 			var pattern = /;|'|"|&|\|\\/g;
 			if (document.contact.myname.value.length <= 0) {
-				alert("The name field cannot be empty.");
+				errDisplay("name_err", "The name field cannot be empty");
 				okay = false;
 			}
 			if (pattern.test(document.contact.myname.value)) {
-				alert("The name field contains invalid characters. These include & ; ' \" and \\.");
+				errDisplay("name_err", "The name field contains invalid characters. These include & ; ' \" and \\.");
 				okay = false;
 			}
 			var at_position = document.contact.email.value.indexOf('@');
-			var dot_position = document.cntact.emai.value.lastIndexOf('.');
+			var dot_position = document.contact.email.value.lastIndexOf('.');
 			var email_length = document.contact.email.value.length;
-			if ((email_length <= 0) ||(at_position < 1) || (dot_position < 1) || ((dot_position + 2) > email_length)) {
-				alert("The email address entered is not valid.");
-				okay = false;
-			}
-			if (document.contact.message.value.length <= 0) {
-				alert("The name message cannot be empty.");
-				okay = false;
-			}
-			if (pattern.test(document.contact.message.value)) {
-				alert("The message field contains invalid characters. These include & ; ' \" and \\.");
+			if ((email_length <= 0) || (at_position < 1) || (dot_position < 1) || ((dot_position + 2) > email_length)) {
+				errDisplay("email_err", "The email address entered is not valid.");
 				okay = false;
 			}
 			if (!document.getElementById("pref_email").checked && !document.getElementById("pref_phone").checked) {
-				alert("A preferred method of contact must be selected.");
+				errDisplay("method_err", "A preferred method of contact must be selected.");
 				okay = false;
 			}
+			if (document.contact.message.value.length <= 0) {
+				errDisplay("message_err", "The message field cannot be empty.");
+				okay = false;
+			}
+			if (pattern.test(document.contact.message.value)) {
+				errDisplay("message_err", "The message field contains invalid characters. These include & ; ' \" and \\.");
+				okay = false;
+			}
+			
 			return okay;
 		}
 	</script>
@@ -51,6 +59,7 @@
 		<div id="cup" name="cup"><img id="cup_img" alt="Zippy Beans Cup" src="Media/cup.png" /></div>
 		<div id="content" name="content">
 			<form name="contact" action="contact.php" onsubmit="return validateContact();" method="POST">
+				<div id="name_err"></div>
 				Name:
 				<select name="salutation">
 					<option value="Miss">Miss</option>
@@ -63,8 +72,10 @@
 				</select>
 				<input type="text" name="myname">
 				<br />
+				<div id="email_err"></div>
 				Email: <input type="text" name="email">
 				<br />
+				<div id="method_err"></div>
 				Preferred Method of Contact: 
 				<br />
 				<input type="radio" name="preference" id="pref_email" value="Email">Email
@@ -73,6 +84,7 @@
 				<br />
 				<input type="checkbox" name="subscribe" value="Yes">Subscribe to the Zippy Beans newsletter!
 				<br />
+				<div id="message_err"></div>
 				Message:
 				<br />
 				<textarea name="message" rows="4" cols="50"></textarea>

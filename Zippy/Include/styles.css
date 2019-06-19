@@ -153,3 +153,19 @@
 		#subhead {
 			font-size: 22pt;
 		}
+		
+		#name_err {
+			color: #FF0000;
+		}
+		
+		#email_err {
+			color: #FF0000;
+		}
+		
+		#method_err {
+			color: #FF0000;
+		}
+		
+		#message_err {
+			color: #FF0000;
+		}
