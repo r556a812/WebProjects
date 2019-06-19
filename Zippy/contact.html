@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <title>Zippy Beans Coffee Co.</title>
+	
+	<link rel="stylesheet" type="text/css" href="Include/styles.css" />
+	
+	<script type="text/javascript">
+		function validateContact() {
+			var okay = true;
+			var pattern = /;|'|"|&|\|\\/g;
+			if (document.contact.myname.value.length <= 0) {
+				alert("The name field cannot be empty.");
+				okay = false;
+			}
+			if (pattern.test(document.contact.myname.value)) {
+				alert("The name field contains invalid characters. These include & ; ' \" and \\.");
+				okay = false;
+			}
+			var at_position = document.contact.email.value.indexOf('@');
+			var dot_position = document.cntact.emai.value.lastIndexOf('.');
+			var email_length = document.contact.email.value.length;
+			if ((email_length <= 0) ||(at_position < 1) || (dot_position < 1) || ((dot_position + 2) > email_length)) {
+				alert("The email address entered is not valid.");
+				okay = false;
+			}
+			if (document.contact.message.value.length <= 0) {
+				alert("The name message cannot be empty.");
+				okay = false;
+			}
+			if (pattern.test(document.contact.message.value)) {
+				alert("The message field contains invalid characters. These include & ; ' \" and \\.");
+				okay = false;
+			}
+			if (!document.getElementById("pref_email").checked && !document.getElementById("pref_phone").checked) {
+				alert("A preferred method of contact must be selected.");
+				okay = false;
+			}
+			return okay;
+		}
+	</script>
+
+  </head>
+  <body class="grad">
+  
+		<div id="banner" name="banner">Zippy Beans Coffee Co.<div id="subhead">Totally Organic, Man!</div></div>
+		<div id="logo" name="logo"><a href="index.html"><img id="logo_img" alt="Zippy Beans Logo" src="Media/logo.png" /></a></div>
+		<div id="menu" name="menu"><a href="menu.html">Menu</a> | <a href="direct.html">Hours and Directions</a> | <a href="contact.html">Contact Us!</a></div>
+		<div id="cup" name="cup"><img id="cup_img" alt="Zippy Beans Cup" src="Media/cup.png" /></div>
+		<div id="content" name="content">
+			<form name="contact" action="contact.php" onsubmit="return validateContact();" method="POST">
+				Name:
+				<select name="salutation">
+					<option value="Miss">Miss</option>
+					<option value="Mrs">Mrs.</option>
+					<option value="Ms">Ms.</option>
+					<option value="Mr.">Mr.</option>
+					<option value="Dr">Dr.</option>
+					<option value="Sir">Sir</option>
+					<option value="Madam">Madam</option>
+				</select>
+				<input type="text" name="myname">
+				<br />
+				Email: <input type="text" name="email">
+				<br />
+				Preferred Method of Contact: 
+				<br />
+				<input type="radio" name="preference" id="pref_email" value="Email">Email
+				<br />
+				<input type="radio" name="preference" id="pref_phone" value="Phone">Phone
+				<br />
+				<input type="checkbox" name="subscribe" value="Yes">Subscribe to the Zippy Beans newsletter!
+				<br />
+				Message:
+				<br />
+				<textarea name="message" rows="4" cols="50"></textarea>
+				<br />
+				<input type="submit" value="Submit!">
+			</form>	
+		</div>
+		<div id="bottom" name="bottom"><div id="disclaimer">This is a fictional company. No coffee beans were harmed in the making of this site.</div></div>
+
+  </body>
+
+</html>
