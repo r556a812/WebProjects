@@ -8,6 +8,15 @@
 	<link rel="stylesheet" type="text/css" href="Include/styles.css" />
 	
 	<script type="text/javascript">
+		function phoneDisplay() {
+			errDisplay("method_err", "");
+			if (document.getElementById("pref_phone").checked) {
+				document.getElementById("phone_div").innerHTML = "Phone number: <input type=\"text\" name=\"phone\">";
+			}
+			else {
+				document.getElementById("phone_div").innerHTML = "";
+			}
+		}
 		function errDisplay (elementID, message) {
 			document.getElementById(elementID).innerHTML = message;
 		}
@@ -36,6 +45,13 @@
 			if (!document.getElementById("pref_email").checked && !document.getElementById("pref_phone").checked) {
 				errDisplay("method_err", "A preferred method of contact must be selected.");
 				okay = false;
+			}
+			if (document.getElementById("pref_phone").checked) {
+				var phoneReg = /^\+?1?\s*?\(?\d{3}(?:\)|[-|\s])?\s*?\d{3}[-|\s]?\d{4}$/g;
+				if (!phoneReg.test(document.contact.phone.value)) {
+					errDisplay("method_err", "The phone number entered is not valid.");
+					okay = false;
+				}
 			}
 			if (document.contact.message.value.length <= 0) {
 				errDisplay("message_err", "The message field cannot be empty.");
@@ -78,10 +94,11 @@
 				<div id="method_err"></div>
 				Preferred Method of Contact: 
 				<br />
-				<input type="radio" name="preference" id="pref_email" value="Email">Email
+				<input type="radio" name="preference" id="pref_email" onchange="phoneDisplay()" value="Email">Email
 				<br />
-				<input type="radio" name="preference" id="pref_phone" value="Phone">Phone
+				<input type="radio" name="preference" id="pref_phone" onchange="phoneDisplay()" value="Phone">Phone
 				<br />
+				<div id="phone_div"></div>
 				<input type="checkbox" name="subscribe" value="Yes">Subscribe to the Zippy Beans newsletter!
 				<br />
 				<div id="message_err"></div>
