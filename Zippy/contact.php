@@ -3,32 +3,41 @@
 
 <head>
 
-    <title>Zippy Beans Coffee Co.</title>
-
-    <link rel="stylesheet" type="text/css" href="Include/styles.css" />
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Contact Page</title>
 
 </head>
 
-<body class="grad">
+<body>
 
-    <div id="banner" name="banner">Zippy Beans Coffee Co.
-        <div id="subhead">Totally Organic, Man!</div>
-    </div>
-    <div id="logo" name="logo">
-        <a href="index.html"><img id="logo_img" alt="Zippy Beans Logo" src="Media/logo.png" /></a>
-    </div>
-    <div id="menu" name="menu"><a href="menu.html">Menu</a> | <a href="direct.html">Hours and Directions</a> | <a href="contact.html">Contact Us!</a></div>
-    <div id="cup" name="cup"><img id="cup_img" alt="Zippy Beans Cup" src="Media/cup.png" /></div>
-    <div id="content" name="content">
-        <?php 
-            Print "Form processing coming soon";
-            ?>
-    </div>
-    <div id="bottom" name="bottom">
-        <div id="disclaimer">This is a fictional company. No coffee beans were harmed in the making of this site.</div>
-    </div>
+    <?php
+        $_POST["myname"] = substr($_POST["myname"], 0, 50);
+        $unsafe = array(";", "'", "\"", "&", "\\");
+        $_POST["myname"] = str_replace($unsafe, "", $_POST["myname"]);
+        $_POST["myname"] = strip_tags($_POST["myname"]);
+        echo $_POST["myname"];
+        echo "<br>";
+
+        $_POST["email"] = substr($_POST["email"], 0, 50);
+        $unsafe = array(";", "'", "\"", "&", "\\");
+        $_POST["email"] = str_replace($unsafe, "", $_POST["email"]);
+        $_POST["email"] = strip_tags($_POST["email"]);
+        echo $_POST["email"];
+        echo "<br>";
+
+        $_POST["message"] = substr($_POST["message"], 0, 50);
+        $unsafe = array(";", "'", "\"", "&", "\\");
+        $_POST["message"] = str_replace($unsafe, "", $_POST["message"]);
+        $_POST["message"] = strip_tags($_POST["message"]);
+        echo $_POST["message"];
+        echo "<br>";
+
+        $_POST["phone"] = substr($_POST["phone"], 0, 50);
+        $unsafe = array(";", "'", "\"", "&", "\\");
+        $_POST["phone"] = str_replace($unsafe, "", $_POST["phone"]);
+        $_POST["phone"] = strip_tags($_POST["phone"]);
+        echo $_POST["phone"];
+        echo "<br>";
+    ?>
 
 </body>
 
