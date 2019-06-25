@@ -1,83 +1,90 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
+<head>
 
     <title>Zippy Beans Coffee Co.</title>
-	
-	<link rel="stylesheet" type="text/css" href="Include/styles.css" />
-	
-	<script type="text/javascript">
-		function phoneDisplay() {
-			errDisplay("method_err", "");
-			if (document.getElementById("pref_phone").checked) {
-				document.getElementById("phone_div").innerHTML = "Phone number: <input type=\"text\" name=\"phone\">";
-			}
-			else {
-				document.getElementById("phone_div").innerHTML = "";
-			}
-		}
-		function errDisplay (elementID, message) {
-			document.getElementById(elementID).innerHTML = message;
-		}
-		function validateContact() {
-			var okay = true;
-			errDisplay("name_err", "");
-			errDisplay("email_err", "");
-			errDisplay("method_err", "");
-			errDisplay("message_err", "");
-			var pattern = /;|'|"|&|\|\\/g;
-			if (document.contact.myname.value.length <= 0) {
-				errDisplay("name_err", "The name field cannot be empty");
-				okay = false;
-			}
-			if (pattern.test(document.contact.myname.value)) {
-				errDisplay("name_err", "The name field contains invalid characters. These include & ; ' \" and \\.");
-				okay = false;
-			}
-			var at_position = document.contact.email.value.indexOf('@');
-			var dot_position = document.contact.email.value.lastIndexOf('.');
-			var email_length = document.contact.email.value.length;
-			if ((email_length <= 0) || (at_position < 1) || (dot_position < 1) || ((dot_position + 2) > email_length)) {
-				errDisplay("email_err", "The email address entered is not valid.");
-				okay = false;
-			}
-			if (!document.getElementById("pref_email").checked && !document.getElementById("pref_phone").checked) {
-				errDisplay("method_err", "A preferred method of contact must be selected.");
-				okay = false;
-			}
-			if (document.getElementById("pref_phone").checked) {
-				var phoneReg = /^\+?1?\s*?\(?\d{3}(?:\)|[-|\s])?\s*?\d{3}[-|\s]?\d{4}$/g;
-				if (!phoneReg.test(document.contact.phone.value)) {
-					errDisplay("method_err", "The phone number entered is not valid.");
-					okay = false;
-				}
-			}
-			if (document.contact.message.value.length <= 0) {
-				errDisplay("message_err", "The message field cannot be empty.");
-				okay = false;
-			}
-			if (pattern.test(document.contact.message.value)) {
-				errDisplay("message_err", "The message field contains invalid characters. These include & ; ' \" and \\.");
-				okay = false;
-			}
-			
-			return okay;
-		}
-	</script>
 
-  </head>
-  <body class="grad">
-  
-		<div id="banner" name="banner">Zippy Beans Coffee Co.<div id="subhead">Totally Organic, Man!</div></div>
-		<div id="logo" name="logo"><a href="index.html"><img id="logo_img" alt="Zippy Beans Logo" src="Media/logo.png" /></a></div>
-		<div id="menu" name="menu"><a href="menu.html">Menu</a> | <a href="direct.html">Hours and Directions</a> | <a href="contact.html">Contact Us!</a></div>
-		<div id="cup" name="cup"><img id="cup_img" alt="Zippy Beans Cup" src="Media/cup.png" /></div>
-		<div id="content" name="content">
-			<form name="contact" action="contact.php" onsubmit="return validateContact();" method="POST">
-				<div id="name_err"></div>
-				Name:
-				<select name="salutation">
+    <link rel="stylesheet" type="text/css" href="Include/styles.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        function phoneDisplay() {
+            if (document.getElementById("pref_phone").checked) {
+                $("div.myphone").addClass("show");
+            } else {
+                $("div.myphone").removeClass("show");
+            }
+        }
+
+        function errDisplay(elementID, message) {
+            document.getElementById(elementID).innerHTML = message;
+        }
+
+        function validateContact() {
+            var okay = true;
+            errDisplay("name_err", "");
+            errDisplay("email_err", "");
+            errDisplay("method_err", "");
+            errDisplay("message_err", "");
+            var pattern = /;|'|"|&|\|\\/g;
+            if (document.contact.myname.value.length <= 0) {
+                errDisplay("name_err", "The name field cannot be empty");
+                okay = false;
+            }
+            if (pattern.test(document.contact.myname.value)) {
+                errDisplay("name_err", "The name field contains invalid characters. These include & ; ' \" and \\.");
+                okay = false;
+            }
+            var at_position = document.contact.email.value.indexOf('@');
+            var dot_position = document.contact.email.value.lastIndexOf('.');
+            var email_length = document.contact.email.value.length;
+            if ((email_length <= 0) || (at_position < 1) || (dot_position < 1) || ((dot_position + 2) > email_length)) {
+                errDisplay("email_err", "The email address entered is not valid.");
+                okay = false;
+            }
+            if (!document.getElementById("pref_email").checked && !document.getElementById("pref_phone").checked) {
+                errDisplay("method_err", "A preferred method of contact must be selected.");
+                okay = false;
+            }
+            if (document.getElementById("pref_phone").checked) {
+                var phoneReg = /^\+?1?\s*?\(?\d{3}(?:\)|[-|\s])?\s*?\d{3}[-|\s]?\d{4}$/g;
+                if (!phoneReg.test(document.contact.phone.value)) {
+                    errDisplay("method_err", "The phone number entered is not valid.");
+                    okay = false;
+                }
+            }
+            if (document.contact.message.value.length <= 0) {
+                errDisplay("message_err", "The message field cannot be empty.");
+                okay = false;
+            }
+            if (pattern.test(document.contact.message.value)) {
+                errDisplay("message_err", "The message field contains invalid characters. These include & ; ' \" and \\.");
+                okay = false;
+            }
+
+            return okay;
+        }
+    </script>
+
+</head>
+
+<body class="grad">
+
+    <div id="banner" name="banner">Zippy Beans Coffee Co.
+        <div id="subhead">Totally Organic, Man!</div>
+    </div>
+    <div id="logo" name="logo">
+        <a href="index.html"><img id="logo_img" alt="Zippy Beans Logo" src="Media/logo.png" /></a>
+    </div>
+    <div id="menu" name="menu"><a href="menu.html">Menu</a> | <a href="direct.html">Hours and Directions</a> | <a href="contact.html">Contact Us!</a></div>
+    <div id="cup" name="cup"><img id="cup_img" alt="Zippy Beans Cup" src="Media/cup.png" /></div>
+    <div id="content" name="content">
+        <form name="contact" action="contact.php" onsubmit="return validateContact();" method="POST">
+            <div id="name_err"></div>
+            Name:
+            <select name="salutation">
 					<option value="Miss">Miss</option>
 					<option value="Mrs">Mrs.</option>
 					<option value="Ms">Ms.</option>
@@ -86,31 +93,33 @@
 					<option value="Sir">Sir</option>
 					<option value="Madam">Madam</option>
 				</select>
-				<input type="text" name="myname">
-				<br />
-				<div id="email_err"></div>
-				Email: <input type="text" name="email">
-				<br />
-				<div id="method_err"></div>
-				Preferred Method of Contact: 
-				<br />
-				<input type="radio" name="preference" id="pref_email" onchange="phoneDisplay()" value="Email">Email
-				<br />
-				<input type="radio" name="preference" id="pref_phone" onchange="phoneDisplay()" value="Phone">Phone
-				<br />
-				<div id="phone_div"></div>
-				<input type="checkbox" name="subscribe" value="Yes">Subscribe to the Zippy Beans newsletter!
-				<br />
-				<div id="message_err"></div>
-				Message:
-				<br />
-				<textarea name="message" rows="4" cols="50"></textarea>
-				<br />
-				<input type="submit" value="Submit!">
-			</form>	
-		</div>
-		<div id="bottom" name="bottom"><div id="disclaimer">This is a fictional company. No coffee beans were harmed in the making of this site.</div></div>
+            <input type="text" name="myname">
+            <br />
+            <div id="email_err"></div>
+            Email: <input type="text" name="email">
+            <br />
+            <div id="method_err"></div>
+            Preferred Method of Contact:
+            <br />
+            <input type="radio" name="preference" id="pref_email" onchange="phoneDisplay()" value="Email">Email
+            <br />
+            <input type="radio" name="preference" id="pref_phone" onchange="phoneDisplay()" value="Phone">Phone
+            <br />
+            <div id="phone_div" class="myphone">Phone Number: <input type="text" name="phone"></div>
+            <input type="checkbox" name="subscribe" value="Yes">Subscribe to the Zippy Beans newsletter!
+            <br />
+            <div id="message_err"></div>
+            Message:
+            <br />
+            <textarea name="message" rows="4" cols="50"></textarea>
+            <br />
+            <input type="submit" value="Submit!">
+        </form>
+    </div>
+    <div id="bottom" name="bottom">
+        <div id="disclaimer">This is a fictional company. No coffee beans were harmed in the making of this site.</div>
+    </div>
 
-  </body>
+</body>
 
 </html>
