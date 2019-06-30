@@ -17,13 +17,6 @@
         echo $_POST["myname"];
         echo "<br>";
 
-        $headers = 'MIME-Version: 1.0' . '\r\n';
-        $headers .= 'Content-type: text/html; charset=iso-8859-1' . '\r\n';
-        $headers .= 'From: Richard Aviles <richard@richardtest.x10host.com>' . '\r\n';
-        $mailme = mail('Reply-To: r_aviles1985@yahoo.com', 'Contact Entry Information', 'The name field is ' . $_POST["myname"], $headers);
-        echo $mailme;
-        echo "<br>";
-
         $_POST["email"] = substr($_POST["email"], 0, 50);
         $unsafe = array(";", "'", "\"", "&", "\\");
         $_POST["email"] = str_replace($unsafe, "", $_POST["email"]);
@@ -43,6 +36,14 @@
         $_POST["phone"] = str_replace($unsafe, "", $_POST["phone"]);
         $_POST["phone"] = strip_tags($_POST["phone"]);
         echo $_POST["phone"];
+        echo "<br>";
+
+        $message_to_send = "The name field is: " . $_POST["myname"] . "\r\nThe email field is: " . $_POST["email"] . "\r\nThe message field is: " . $_POST["message"];
+        $headers = 'MIME-Version: 1.0' . '\r\n';
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . '\r\n';
+        $headers .= 'From: Richard Aviles <richard@richardtest.x10host.com>' . '\r\n';
+        $mailme = mail('Reply-To: r_aviles1985@yahoo.com', 'Contact Entry Information', $message_to_send, $headers);
+        echo $mailme;
         echo "<br>";
     ?>
 
