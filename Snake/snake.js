@@ -57,6 +57,14 @@ function collision(head, snakeArray) {
     return false;
 }
 
+function restartGame() {
+    var playAgain = confirm("Play again?");
+    if (playAgain) {
+        document.location.reload(false);
+    }
+
+}
+
 //Function to draw to the canvas
 function draw() {
     /***  Create the checkered pattern to show the play area
@@ -79,6 +87,15 @@ function draw() {
 
         }
     }
+
+    //Draw the title
+    ctx.fillStyle = "white";
+    ctx.font = "45px Changa one";
+    ctx.fillText("SNAKE ", 7 * box, 2 * box);
+
+    ctx.fillStyle = "black";
+    ctx.font = "24px Changa one";
+    ctx.fillText("SCORE: " + score, 14.5 * box, 2.5 * box);
 
     //Draw the snake. Head is black with white outline, body is white with black outline
     for (var i = 0; i < snake.length; i++) {
@@ -127,10 +144,8 @@ function draw() {
     // Game over
     if (snake[0].x < box || snake[0].x > 17 * box || snake[0].y < 3 * box || snake[0].y > 17 * box || collision(new_head, snake)) {
         clearInterval(game);
+        restartGame();
     }
-
-
-
 
 }
 
