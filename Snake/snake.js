@@ -7,6 +7,7 @@ const box = 32;
 //Create the snake
 var snake = [];
 snake[0] = { x: 9 * box, y: 10 * box }
+snake[1] = { x: 8 * box, y: 10 * box }
 
 //Create the food 
 //Note: 608/32 = 19x19 "boxes" in the screen. 
