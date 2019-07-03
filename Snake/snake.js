@@ -43,6 +43,18 @@ function direction(event) {
         next_y = box;
 
     }
+
+}
+
+function collision(head, snakeArray) {
+    for (var i = 1; i < snakeArray.length; i++) {
+        if (head.x == snakeArray[i].x && head.y == snakeArray[i].y) {
+            return true;
+        }
+
+    }
+
+    return false;
 }
 
 //Function to draw to the canvas
@@ -111,6 +123,11 @@ function draw() {
         y: snake_y
     }
     snake.unshift(new_head);
+
+    // Game over
+    if (snake[0].x < box || snake[0].x > 17 * box || snake[0].y < 3 * box || snake[0].y > 17 * box || collision(new_head, snake)) {
+        clearInterval(game);
+    }
 
 
 
