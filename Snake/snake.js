@@ -21,26 +21,31 @@ var food = { x: food_x, y: food_y };
 //Listen for input to control the snake
 document.addEventListener("keydown", direction);
 var next_x, next_y;
-next_x = box;
-next_y = 0;
+//next_x = box;
+//next_y = 0;
+var newGame = true;
 
 function direction(event) {
 
     if (event.keyCode == 37 && next_x != box) { //Left
         next_x = -box;
         next_y = 0;
+        newGame = false;
 
     } else if (event.keyCode == 38 && next_y != box) { //Up
         next_x = 0;
         next_y = -box;
+        newGame = false;
 
     } else if (event.keyCode == 39 && next_x != -box) { //Right
         next_x = box;
         next_y = 0;
+        newGame = false;
 
     } else if (event.keyCode == 40 && next_y != -box) { //Down
         next_x = 0;
         next_y = box;
+        newGame = false;
 
     }
 
@@ -114,6 +119,16 @@ function draw() {
     ctx.fillStyle = "red";
     ctx.fillRect(food.x, food.y, box, box);
 
+    while (newGame) {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+        ctx.fillRect(0, 0, cnvs.width, cnvs.height);
+
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "24px Verdana";
+        drawCenterText("Press any arrow key to start!", 0, cnvs.width / 2, cnvs.height / 2);
+        ctx.fillText("Press any arrow key to begin", 5 * box, 5 * box);
+    }
+
     //Old position
     snake_x = snake[0].x;
     snake_y = snake[0].y;
@@ -148,5 +163,6 @@ function draw() {
     }
 
 }
+
 
 var game = setInterval(draw, 200);
