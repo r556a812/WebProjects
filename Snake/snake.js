@@ -60,6 +60,20 @@ function collision(head, snakeArray) {
     return false;
 }
 
+function newFood() {
+
+    food_x = Math.floor(Math.random() * 17 + 1) * box; //Game board width is 17 boxes with offset of 1 because of the border
+    food_y = Math.floor(Math.random() * 15 + 3) * box; //Game board height is 15 boxes with offset of 3 because of the title area
+    food = { x: food_x, y: food_y };
+
+    for (var i = 0; i < snake.length; i++) {
+        if (snake[i].x == food.x && snake[i].y == food.y) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function restartGame() {
     var playAgain = confirm("Play again?");
     if (playAgain) {
@@ -138,10 +152,9 @@ function draw() {
         //If eat the food dont pop tail and get next random food place, else pop
         if (snake[0].x == food.x && snake[0].y == food.y) {
 
-            food_x = Math.floor(Math.random() * 17 + 1) * box; //Game board width is 17 boxes with offset of 1 because of the border
-            food_y = Math.floor(Math.random() * 15 + 3) * box; //Game board height is 15 boxes with offset of 3 because of the title area
-            food = { x: food_x, y: food_y };
+            while (newFood()) {
 
+            }
             score++;
 
         } else {
