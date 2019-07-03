@@ -4,6 +4,9 @@ const ctx = cnvs.getContext("2d");
 //unit size 
 const box = 32;
 
+//Initialize starting score to 0
+var score = 0;
+
 //Create the snake
 var snake = [];
 snake[0] = { x: 9 * box, y: 10 * box }
@@ -23,19 +26,19 @@ next_y = 0;
 
 function direction(event) {
 
-    if (event.keyCode == 37) { //Left
+    if (event.keyCode == 37 && next_x != box) { //Left
         next_x = -box;
         next_y = 0;
 
-    } else if (event.keyCode == 38) { //Up
+    } else if (event.keyCode == 38 && next_y != box) { //Up
         next_x = 0;
         next_y = -box;
 
-    } else if (event.keyCode == 39) { //Right
+    } else if (event.keyCode == 39 && next_x != -box) { //Right
         next_x = box;
         next_y = 0;
 
-    } else if (event.keyCode == 40) { //Down
+    } else if (event.keyCode == 40 && next_y != -box) { //Down
         next_x = 0;
         next_y = box;
 
@@ -86,8 +89,19 @@ function draw() {
     snake_x = snake[0].x;
     snake_y = snake[0].y;
 
-    //Remove the tail
-    snake.pop();
+    //If eat the food dont pop tail and get next random food place, else pop
+    if (snake[0].x == food.x && snake[0].y == food.y) {
+
+        food_x = Math.floor(Math.random() * 17 + 1) * box; //Game board width is 17 boxes with offset of 1 because of the border
+        food_y = Math.floor(Math.random() * 15 + 3) * box; //Game board height is 15 boxes with offset of 3 because of the title area
+        food = { x: food_x, y: food_y };
+
+        score++;
+
+    } else {
+
+        snake.pop();
+    }
 
     //Add new head
     snake_x += next_x;
@@ -99,6 +113,8 @@ function draw() {
     snake.unshift(new_head);
 
 
+
+
 }
 
-var game = setInterval(draw, 500);
+var game = setInterval(draw, 200);
