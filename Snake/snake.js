@@ -21,8 +21,6 @@ var food = { x: food_x, y: food_y };
 //Listen for input to control the snake
 document.addEventListener("keydown", direction);
 var next_x, next_y;
-//next_x = box;
-//next_y = 0;
 var newGame = true;
 
 function direction(event) {
@@ -80,7 +78,7 @@ function draw() {
     for (var column = 0; column < 19; column++) {
         for (var row = 0; row < 19; row++) {
             if (column == 0 || row < 3 || column == 18 || row == 18) {
-                ctx.fillStyle = "rgb(0, 128, 0)";
+                ctx.fillStyle = "limegreen";
                 ctx.fillRect(column * box, row * box, box, box);
             } else if ((column % 2 == 0 && row % 2 == 1) || (column % 2 == 1 && row % 2 == 0)) {
                 ctx.fillStyle = "rgb(154, 205, 50)";
@@ -93,12 +91,17 @@ function draw() {
         }
     }
 
-    //Draw the title
-    ctx.fillStyle = "white";
+    //Draw the title with a Gradient
     ctx.font = "45px Changa one";
+    var gradient = ctx.createLinearGradient(7 * box, box, 12 * box, 2 * box);
+    gradient.addColorStop("0", "Red");
+    gradient.addColorStop("0.5", "Orange");
+    gradient.addColorStop("1", "Yellow");
+    ctx.fillStyle = gradient;
     ctx.fillText("SNAKE ", 7 * box, 2 * box);
 
-    ctx.fillStyle = "black";
+    //Draw the Score
+    ctx.fillStyle = "Black";
     ctx.font = "24px Changa one";
     ctx.fillText("SCORE: " + score, 14.5 * box, 2.5 * box);
 
@@ -119,42 +122,43 @@ function draw() {
     ctx.fillStyle = "red";
     ctx.fillRect(food.x, food.y, box, box);
 
-    while (newGame) {
+    //Wait for user to press arrow key to start
+    if (newGame) {
         ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
         ctx.fillRect(0, 0, cnvs.width, cnvs.height);
-
-        ctx.fillStyle = "#ffffff";
+        ctx.fillStyle = "white";
         ctx.font = "24px Verdana";
-        drawCenterText("Press any arrow key to start!", 0, cnvs.width / 2, cnvs.height / 2);
-        ctx.fillText("Press any arrow key to begin", 5 * box, 5 * box);
-    }
-
-    //Old position
-    snake_x = snake[0].x;
-    snake_y = snake[0].y;
-
-    //If eat the food dont pop tail and get next random food place, else pop
-    if (snake[0].x == food.x && snake[0].y == food.y) {
-
-        food_x = Math.floor(Math.random() * 17 + 1) * box; //Game board width is 17 boxes with offset of 1 because of the border
-        food_y = Math.floor(Math.random() * 15 + 3) * box; //Game board height is 15 boxes with offset of 3 because of the title area
-        food = { x: food_x, y: food_y };
-
-        score++;
+        ctx.fillText("Press any arrow key to begin!", 4 * box, 8 * box);
 
     } else {
+        //Old position
+        snake_x = snake[0].x;
+        snake_y = snake[0].y;
 
-        snake.pop();
+        //If eat the food dont pop tail and get next random food place, else pop
+        if (snake[0].x == food.x && snake[0].y == food.y) {
+
+            food_x = Math.floor(Math.random() * 17 + 1) * box; //Game board width is 17 boxes with offset of 1 because of the border
+            food_y = Math.floor(Math.random() * 15 + 3) * box; //Game board height is 15 boxes with offset of 3 because of the title area
+            food = { x: food_x, y: food_y };
+
+            score++;
+
+        } else {
+
+            snake.pop();
+        }
+
+        //Add new head
+        snake_x += next_x;
+        snake_y += next_y;
+        var new_head = {
+            x: snake_x,
+            y: snake_y
+        }
+        snake.unshift(new_head);
     }
 
-    //Add new head
-    snake_x += next_x;
-    snake_y += next_y;
-    var new_head = {
-        x: snake_x,
-        y: snake_y
-    }
-    snake.unshift(new_head);
 
     // Game over
     if (snake[0].x < box || snake[0].x > 17 * box || snake[0].y < 3 * box || snake[0].y > 17 * box || collision(new_head, snake)) {
