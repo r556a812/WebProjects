@@ -7,6 +7,12 @@ const box = 32;
 //Initialize starting score to 0
 var score = 0;
 
+//load images
+const foodImg = new Image();
+foodImg.src = "apple.png";
+const snakeImg = new Image();
+snakeImg.src = "snake_head.png";
+
 //Create the snake
 var snake = [];
 snake[0] = { x: 9 * box, y: 10 * box }
@@ -124,6 +130,7 @@ function draw() {
         if (i == 0) {
             ctx.fillStyle = "black";
             ctx.strokeStyle = "white";
+            //ctx.drawImage(snakeImg, snake[0].x, snake[0].y, box, box);
         } else {
             ctx.fillStyle = "white";
             ctx.strokeStyle = "black";
@@ -133,8 +140,9 @@ function draw() {
     }
 
     //Draw the food. Red block for now
-    ctx.fillStyle = "red";
-    ctx.fillRect(food.x, food.y, box, box);
+    //ctx.fillStyle = "red";
+    //ctx.fillRect(food.x, food.y, box, box);
+    ctx.drawImage(foodImg, food.x, food.y, box, box);
 
     //Wait for user to press arrow key to start
     if (newGame) {
@@ -181,5 +189,5 @@ function draw() {
 
 }
 
-
-var game = setInterval(draw, 200);
+//Call the draw function 
+var game = setInterval(draw, 150);
